@@ -3,206 +3,206 @@ import { createContext, useEffect } from "react";
 import { defaultSettings } from "../config";
 import useLocalStorage from "../hooks/useLocalStorage";
 import getColorPresets, {
-  defaultPreset,
-  colorPresets,
+	defaultPreset,
+	colorPresets,
 } from "../utils/getColorPresets";
 
 const initialState = {
-  ...defaultSettings,
+	...defaultSettings,
 
-  // Mode
-  onToggleMode: () => {},
-  onChangeMode: () => {},
+	// Mode
+	onToggleMode: () => {},
+	onChangeMode: () => {},
 
-  // Direction
-  onToggleDirection: () => {},
-  onChangeDirection: () => {},
-  onChangeDirectionByLang: () => {},
+	// Direction
+	onToggleDirection: () => {},
+	onChangeDirection: () => {},
+	onChangeDirectionByLang: () => {},
 
-  // Layout
-  onToggleLayout: () => {},
-  onChangeLayout: () => {},
+	// Layout
+	onToggleLayout: () => {},
+	onChangeLayout: () => {},
 
-  // Contrast
-  onToggleContrast: () => {},
-  onChangeContrast: () => {},
+	// Contrast
+	onToggleContrast: () => {},
+	onChangeContrast: () => {},
 
-  // Color
-  onChangeColor: () => {},
-  setColor: defaultPreset,
-  colorOption: [],
+	// Color
+	onChangeColor: () => {},
+	setColor: defaultPreset,
+	colorOption: [],
 
-  // Stretch
-  onToggleStretch: () => {},
+	// Stretch
+	onToggleStretch: () => {},
 
-  // Reset
-  onResetSetting: () => {},
+	// Reset
+	onResetSetting: () => {},
 };
 
 const SettingsContext = createContext(initialState);
 
 const SettingsProvider = ({ children }) => {
-  const [settings, setSettings] = useLocalStorage("settings", {
-    themeMode: initialState.themeMode,
-    themeLayout: initialState.themeLayout,
-    themeStretch: initialState.themeStretch,
-    themeContrast: initialState.themeContrast,
-    themeDirection: initialState.themeDirection,
-    themeColorPresets: initialState.themeColorPresets,
-  });
+	const [settings, setSettings] = useLocalStorage("settings", {
+		themeMode: initialState.themeMode,
+		themeLayout: initialState.themeLayout,
+		themeStretch: initialState.themeStretch,
+		themeContrast: initialState.themeContrast,
+		themeDirection: initialState.themeDirection,
+		themeColorPresets: initialState.themeColorPresets,
+	});
 
-  const isArabic = localStorage.getItem("i18nextLng") === "ar";
+	const isArabic = localStorage.getItem("i18nextLng") === "ar";
 
-  useEffect(() => {
-    if (isArabic) {
-      onChangeDirectionByLang("ar");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isArabic]);
+	useEffect(() => {
+		if (isArabic) {
+			onChangeDirectionByLang("ar");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isArabic]);
 
-  // Mode
+	// Mode
 
-  const onToggleMode = () => {
-    setSettings({
-      ...settings,
-      themeMode: settings.themeMode === "light" ? "dark" : "light",
-    });
-  };
+	const onToggleMode = () => {
+		setSettings({
+			...settings,
+			themeMode: settings.themeMode === "light" ? "dark" : "light",
+		});
+	};
 
-  const onChangeMode = (event) => {
-    setSettings({
-      ...settings,
-      themeMode: event.target.value,
-    });
-  };
+	const onChangeMode = (event) => {
+		setSettings({
+			...settings,
+			themeMode: event.target.value,
+		});
+	};
 
-  // Direction
+	// Direction
 
-  const onToggleDirection = () => {
-    setSettings({
-      ...settings,
-      themeDirection: settings.themeDirection === "rtl" ? "ltr" : "rtl",
-    });
-  };
+	const onToggleDirection = () => {
+		setSettings({
+			...settings,
+			themeDirection: settings.themeDirection === "rtl" ? "ltr" : "rtl",
+		});
+	};
 
-  const onChangeDirection = (event) => {
-    setSettings({
-      ...settings,
-      themeDirection: event.target.value,
-    });
-  };
+	const onChangeDirection = (event) => {
+		setSettings({
+			...settings,
+			themeDirection: event.target.value,
+		});
+	};
 
-  const onChangeDirectionByLang = (lang) => {
-    setSettings({
-      ...settings,
-      themeDirection: lang === "ar" ? "rtl" : "ltr",
-    });
-  };
+	const onChangeDirectionByLang = (lang) => {
+		setSettings({
+			...settings,
+			themeDirection: lang === "ar" ? "rtl" : "ltr",
+		});
+	};
 
-  // Layout
+	// Layout
 
-  const onToggleLayout = () => {
-    setSettings({
-      ...settings,
-      themeLayout:
-        settings.themeLayout === "vertical" ? "horizontal" : "vertical",
-    });
-  };
+	const onToggleLayout = () => {
+		setSettings({
+			...settings,
+			themeLayout:
+				settings.themeLayout === "vertical" ? "horizontal" : "vertical",
+		});
+	};
 
-  const onChangeLayout = (event) => {
-    setSettings({
-      ...settings,
-      themeLayout: event.target.value,
-    });
-  };
+	const onChangeLayout = (event) => {
+		setSettings({
+			...settings,
+			themeLayout: event.target.value,
+		});
+	};
 
-  // Contrast
+	// Contrast
 
-  const onToggleContrast = () => {
-    setSettings({
-      ...settings,
-      themeContrast: settings.themeContrast === "default" ? "bold" : "default",
-    });
-  };
+	const onToggleContrast = () => {
+		setSettings({
+			...settings,
+			themeContrast: settings.themeContrast === "default" ? "bold" : "default",
+		});
+	};
 
-  const onChangeContrast = (event) => {
-    setSettings({
-      ...settings,
-      themeContrast: event.target.value,
-    });
-  };
+	const onChangeContrast = (event) => {
+		setSettings({
+			...settings,
+			themeContrast: event.target.value,
+		});
+	};
 
-  // Color
+	// Color
 
-  const onChangeColor = (event) => {
-    setSettings({
-      ...settings,
-      themeColorPresets: event.target.value,
-    });
-  };
+	const onChangeColor = (event) => {
+		setSettings({
+			...settings,
+			themeColorPresets: event.target.value,
+		});
+	};
 
-  // Stretch
+	// Stretch
 
-  const onToggleStretch = () => {
-    setSettings({
-      ...settings,
-      themeStretch: !settings.themeStretch,
-    });
-  };
+	const onToggleStretch = () => {
+		setSettings({
+			...settings,
+			themeStretch: !settings.themeStretch,
+		});
+	};
 
-  // Reset
+	// Reset
 
-  const onResetSetting = () => {
-    setSettings({
-      themeMode: initialState.themeMode,
-      themeLayout: initialState.themeLayout,
-      themeStretch: initialState.themeStretch,
-      themeContrast: initialState.themeContrast,
-      themeDirection: initialState.themeDirection,
-      themeColorPresets: initialState.themeColorPresets,
-    });
-  };
+	const onResetSetting = () => {
+		setSettings({
+			themeMode: initialState.themeMode,
+			themeLayout: initialState.themeLayout,
+			themeStretch: initialState.themeStretch,
+			themeContrast: initialState.themeContrast,
+			themeDirection: initialState.themeDirection,
+			themeColorPresets: initialState.themeColorPresets,
+		});
+	};
 
-  return (
-    <SettingsContext.Provider
-      value={{
-        ...settings, // Mode
-        onToggleMode,
-        onChangeMode,
+	return (
+		<SettingsContext.Provider
+			value={{
+				...settings, // Mode
+				onToggleMode,
+				onChangeMode,
 
-        // Direction
-        onToggleDirection,
-        onChangeDirection,
-        onChangeDirectionByLang,
+				// Direction
+				onToggleDirection,
+				onChangeDirection,
+				onChangeDirectionByLang,
 
-        // Layout
-        onToggleLayout,
-        onChangeLayout,
+				// Layout
+				onToggleLayout,
+				onChangeLayout,
 
-        // Contrast
-        onChangeContrast,
-        onToggleContrast,
+				// Contrast
+				onChangeContrast,
+				onToggleContrast,
 
-        // Stretch
-        onToggleStretch,
+				// Stretch
+				onToggleStretch,
 
-        // Color
-        onChangeColor,
-        setColor: getColorPresets(settings.themeColorPresets),
-        colorOption: colorPresets.map((color) => ({
-          name: color.name,
-          value: color.main,
-        })),
+				// Color
+				onChangeColor,
+				setColor: getColorPresets(settings.themeColorPresets),
+				colorOption: colorPresets.map((color) => ({
+					name: color.name,
+					value: color.main,
+				})),
 
-        // Reset
-        onResetSetting,
-      }}
-    >
-      {children}
-    </SettingsContext.Provider>
-  );
+				// Reset
+				onResetSetting,
+			}}
+		>
+			{children}
+		</SettingsContext.Provider>
+	);
 };
 
-export {SettingsContext};
+export { SettingsContext };
 
 export default SettingsProvider;
